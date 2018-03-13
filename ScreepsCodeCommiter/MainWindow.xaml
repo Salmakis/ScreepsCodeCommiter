@@ -24,7 +24,7 @@
 		<TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectionChanged="TabSelectionChanged">
 			<TabItem Header="Settings">
 				<Grid Background="#FFE5E5E5">
-					<Button Content="Test" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="45" x:Name="btnTest" Click="TestServer" Height="22"/>
+					<Button Content="Test" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="45" x:Name="btnTest" Click="ButtonTestServer" Height="22"/>
 					<ComboBox HorizontalAlignment="Left" Margin="60,10,0,0" VerticalAlignment="Top" Width="102" x:Name="listServers" SelectionChanged="ServerSelected" Grid.ColumnSpan="2"/>
 					<Button Content="Add Server" x:Name="btnAdd" HorizontalAlignment="Left" Margin="167,10,0,0" VerticalAlignment="Top" Width="75" Click="ButtonAddServer" Height="22"/>
 					<Label Content="" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="152" Height="23" x:Name="lblAddress" Grid.ColumnSpan="2"/>
@@ -39,7 +39,7 @@
 					<Grid HorizontalAlignment="Left" Height="312" Margin="10,41,0,0" VerticalAlignment="Top" Width="402" IsEnabled="false" Name="downGrid">
 						<Label Content="Select Branch" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="92" Height="24"/>
 						<ComboBox HorizontalAlignment="Left" Margin="122,10,0,0" VerticalAlignment="Top" Width="160" Height="24" Name="cmbDownBranches" SelectionChanged="DoNothing"/>
-						<Button Content="Refresh" HorizontalAlignment="Left" Margin="287,10,0,0" VerticalAlignment="Top" Width="105" Height="24" Click="RefreshBranchButton" />
+						<Button Content="Refresh" HorizontalAlignment="Left" Margin="287,10,0,0" VerticalAlignment="Top" Width="105" Height="24" Click="ButtonRefreshBranches" />
 						<Label Content="Active branch on Server (world):" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" Width="182"/>
 						<Label Content="?" HorizontalAlignment="Left" Margin="192,39,0,0" VerticalAlignment="Top" Width="200" Name="dwnActiveServer"/>
 						<Label Content="Download to:" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top"/>
@@ -48,7 +48,8 @@
 						<Button Content="Open" HorizontalAlignment="Left" Margin="357,71,0,0" VerticalAlignment="Top" Width="35" Click="OpenTargetFolder"/>
 						<CheckBox Content="Create a Subfolder with Branchname and download into" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="380" Name="chkCreateSub"/>
 						<CheckBox Content="Create subfolder structure if folderStructureInfo file is available" HorizontalAlignment="Left" Margin="10,116,0,0" VerticalAlignment="Top" Width="380" Name="chkCreateStructure" ToolTip="You can create a folderInfoStructure file when uploading to keep your folder structure with your code"/>
-						<Button Content="Start Download" HorizontalAlignment="Left" Margin="12,136,0,148" Width="380" Click="StartDownload"/>
+						<CheckBox Content="Yes, overwrite existing files in the target folder if existing!" HorizontalAlignment="Left" Margin="10,161,0,0" VerticalAlignment="Top" Width="382" Name="chkSaveOverwrite" ToolTip="You can create a folderInfoStructure file when uploading to keep your folder structure with your code" Checked="CheckOverwriteDownload" Unchecked="CheckOverwriteDownload"/>
+						<Button Content="Start Download" HorizontalAlignment="Left" Margin="10,181,0,103" Width="382" Click="ButtonStartDownload" Name="btnStartDownload" IsEnabled="false"/>
 					</Grid>
 				</Grid>
 			</TabItem>
