@@ -80,26 +80,16 @@ namespace ScreepsCodeCommiter
 			return branches;
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void ButtonRefreshBranches(object sender, RoutedEventArgs e)
+		private void ButtonRefreshBranchesDown(object sender, RoutedEventArgs e)
 		{
 			ComboBox bListDown = (ComboBox)FindName("cmbDownBranches");
 			RefreshBranchLists(bListDown);
 		}
-		private void PickDownlodTargetFolder(object sender, RoutedEventArgs e)
+
+		private void ButtonRefreshBranchesUp(object sender, RoutedEventArgs e)
 		{
-			using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
-			{
-				System.Windows.Forms.DialogResult result = dialog.ShowDialog();
-				if (result == System.Windows.Forms.DialogResult.OK)
-				{
-					((TextBox)FindName("downloadPathBox")).Text = dialog.SelectedPath;
-				}
-			}
+			ComboBox bListDown = (ComboBox)FindName("cmbUpBranches");
+			RefreshBranchLists(bListDown);
 		}
 	}
 }

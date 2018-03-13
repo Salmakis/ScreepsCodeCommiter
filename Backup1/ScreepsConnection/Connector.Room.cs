@@ -19,6 +19,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using ScreepsConnection;
 using System;
 using System.Collections.Generic;
 using System.Json;
@@ -29,60 +30,24 @@ namespace ScreepsConnection
 {
 	public partial class Connector
 	{
-
-		public async Task<JsonValue> RequestPost(string request)
+		public async Task<Room> GetRoom(string roomName, int shardID)
 		{
-			if (request.Contains("?"))
-			{
-				request += $"&_token={token}";
-			}
-			else
-			{
-				request += $"?_token={token}";
-			}
+			var node = await RequestGet($"/api/game/room-terrain?room={roomName}&shard=shard{shardID}&encoded=1");
 			try
 			{
-				var jsonString = await client.GetStringAsync($"{baseAdress}{request}");
-				return Parse(jsonString);
+				if (node["ok"] == 1)
+				{
+
+					Room room = new Room(node["terrain"][0]["room"]);
+					room.SetTerrain(node["terrain"][0]["terrain"]);
+					return room;
+				}
+				return null;
 			}
 			catch (Exception e)
 			{
-				error = new ConnectorError(e.Message);
-				return Parse("{\"ok\":0}");
-			}
-		}
-
-		public async Task<JsonValue> RequestGet(string request)
-		{
-			if (request.Contains("?")){
-				request += $"&_token={token}";
-			}else{
-				request += $"?_token={token}";
-			}
-			try
-			{
-				var jsonString = await client.GetStringAsync($"{baseAdress}{request}");
-				return Parse(jsonString);
-			}
-			catch (Exception e)
-			{
-				error = new ConnectorError(e.Message);
-				return Parse("{\"ok\":0}");
-			}
-		}
-
-		public JsonValue Parse(string jsonString)
-		{
-			try
-			{
-				var jsonValue = JsonValue.Parse(jsonString);
-				return jsonValue;
-			}
-			catch (Exception e)
-			{
-				this.error = new ConnectorError($"json parse error: {e.Message}");
-				//return a not ok signal json
-				return JsonValue.Parse("{\"ok\":0}");
+				Console.WriteLine(e.Message);
+				return null;
 			}
 		}
 	}

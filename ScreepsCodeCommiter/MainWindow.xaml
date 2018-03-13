@@ -26,7 +26,7 @@
 		</Grid>
 
 		<TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectionChanged="TabSelectionChanged">
-			<TabItem Header="Settings">
+			<TabItem Header="Server">
 				<Grid Background="#FFE5E5E5">
 					<Button Content="Test" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="45" x:Name="btnTest" Click="ButtonTestServer" Height="22"/>
 					<ComboBox HorizontalAlignment="Left" Margin="60,10,0,0" VerticalAlignment="Top" Width="102" x:Name="listServers" SelectionChanged="ServerSelected" Grid.ColumnSpan="2"/>
@@ -35,6 +35,9 @@
 					<Button Content="Edit Server" x:Name="btnEdit" HorizontalAlignment="Left" Margin="167,37,0,0" VerticalAlignment="Top" Width="75" Click="ButtonEditServer" Height="23"/>
 					<Label Content="" HorizontalAlignment="Left" Margin="7,65,0,0" VerticalAlignment="Top" Width="155" Height="23" x:Name="lblToken" Grid.ColumnSpan="2"/>
 					<Button Content="Remove Server" x:Name="btnRemove" HorizontalAlignment="Left" Margin="167,65,0,0" VerticalAlignment="Top" Width="75" Click="ButtonRemoveServer" Height="23"/>
+					<Label Content="to Use the Official screeps.com server you need to get an Auth-Token." HorizontalAlignment="Left" Margin="7,93,0,0" VerticalAlignment="Top" Width="405" Height="27"/>
+					<Label Content="log into screeps.com -> Manage Account -> Auth token" HorizontalAlignment="Left" Margin="7,120,0,0" VerticalAlignment="Top" Width="405" Height="27"/>
+					<Label Content="Info: the servers (with tokens!) will be saved in %appdata%/ScreepsCodeTool" HorizontalAlignment="Left" Margin="7,160,0,0" VerticalAlignment="Top" Width="415" Height="27"/>
 				</Grid>
 			</TabItem>
 			<TabItem Header="Download" Name="tabDownload" >
@@ -43,13 +46,13 @@
 					<Grid HorizontalAlignment="Left" Height="312" Margin="10,41,0,0" VerticalAlignment="Top" Width="402" IsEnabled="false" Name="downGrid">
 						<Label Content="Select Branch" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="92" Height="24"/>
 						<ComboBox HorizontalAlignment="Left" Margin="122,10,0,0" VerticalAlignment="Top" Width="160" Height="24" Name="cmbDownBranches" SelectionChanged="DoNothing"/>
-						<Button Content="Refresh" HorizontalAlignment="Left" Margin="287,10,0,0" VerticalAlignment="Top" Width="105" Height="24" Click="ButtonRefreshBranches" />
+						<Button Content="Refresh" HorizontalAlignment="Left" Margin="287,10,0,0" VerticalAlignment="Top" Width="105" Height="24" Click="ButtonRefreshBranchesDown" />
 						<Label Content="Active branch on Server (world):" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" Width="182"/>
 						<Label Content="?" HorizontalAlignment="Left" Margin="192,39,0,0" VerticalAlignment="Top" Width="200" Name="dwnActiveServer"/>
 						<Label Content="Download to:" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top"/>
-						<TextBox HorizontalAlignment="Left" Height="20" Margin="96,70,0,0" TextWrapping="Wrap" Text="d:\screepsCode" VerticalAlignment="Top" Width="201" IsReadOnly="true" Name="downloadPathBox"/>
-						<Button Content="Change" HorizontalAlignment="Left" Margin="302,71,0,0" VerticalAlignment="Top" Width="50" Click="PickDownlodTargetFolder" />
-						<Button Content="Open" HorizontalAlignment="Left" Margin="357,71,0,0" VerticalAlignment="Top" Width="35" Click="OpenTargetFolder"/>
+						<TextBox HorizontalAlignment="Left" Height="19" Margin="96,71,0,0" TextWrapping="NoWrap" Text="c:\screepsCode" VerticalAlignment="Top" Width="201" Name="downloadPathBox"/>
+						<Button Content="Choose" HorizontalAlignment="Left" Margin="302,71,0,0" VerticalAlignment="Top" Width="50" Click="PickDownlodTargetFolder" />
+						<Button Content="Open" HorizontalAlignment="Left" Margin="357,71,0,0" VerticalAlignment="Top" Width="35" Click="OpenDownloadTargetFolder"/>
 						<CheckBox Content="Create a Subfolder with Branchname and download into" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="380" Name="chkCreateSub"/>
 						<CheckBox Content="Create subfolder structure if folderStructureInfo file is available" HorizontalAlignment="Left" Margin="10,116,0,0" VerticalAlignment="Top" Width="380" Name="chkCreateStructure" ToolTip="You can create a folderInfoStructure file when uploading to keep your folder structure with your code"/>
 						<CheckBox Content="Yes, overwrite existing files in the target folder if existing!" HorizontalAlignment="Left" Margin="10,161,0,0" VerticalAlignment="Top" Width="382" Name="chkSaveOverwrite" ToolTip="You can create a folderInfoStructure file when uploading to keep your folder structure with your code" Checked="CheckOverwriteDownload" Unchecked="CheckOverwriteDownload"/>
@@ -62,11 +65,22 @@
 					<Label Content="..." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="402" Name="upStatus"/>
 					<Grid HorizontalAlignment="Left" Height="312" Margin="10,41,0,0" VerticalAlignment="Top" Width="402" Name="upGrid">
 						<Label Content="Upload into:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80"/>
-						<RadioButton Content="Existing Branch" HorizontalAlignment="Left" Margin="95,16,0,0" VerticalAlignment="Top" GroupName="radioUploadTo" Checked="RadioBranchSelectExisting"/>
-						<RadioButton Content="New Branch" HorizontalAlignment="Left" Margin="95,44,0,0" VerticalAlignment="Top" GroupName="radioUploadTo" Checked="RadioBranchSelectExisting"/>
-						<ComboBox HorizontalAlignment="Left" Margin="199,16,0,0" VerticalAlignment="Top" Width="108" Height="20"/>
-						<Button Content="Refresh" Margin="317,16,10,276"/>
-						<TextBox HorizontalAlignment="Left" Height="20" Margin="199,42,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="108"/>
+						<RadioButton Content="Existing Branch:" HorizontalAlignment="Left" Margin="95,16,0,0" VerticalAlignment="Top" GroupName="radioUploadTo" Checked="RadioBranchSelectExisting" />
+						<RadioButton Content="New Branch:" HorizontalAlignment="Left" Margin="95,44,0,0" VerticalAlignment="Top" GroupName="radioUploadTo" Checked="RadioBranchSelectNew"/>
+						<ComboBox HorizontalAlignment="Left" Margin="199,16,0,0" VerticalAlignment="Top" Width="108" Height="20" x:Name="cmbUpBranches" SelectionChanged="DoNothing" IsEnabled="False"/>
+						<Button Content="Refresh" Margin="317,16,10,276" Click="ButtonRefreshBranchesUp"/>
+						<TextBox HorizontalAlignment="Left" Height="20" Margin="199,42,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="108" x:Name="txtNewBranch" IsEnabled="False"/>
+						<Label Content="Source Directory:" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top"/>
+						<TextBox HorizontalAlignment="Left" Height="20" Margin="115,77,0,0" TextWrapping="NoWrap" Text="c:\screepsCode" Name="uploadPathBox" VerticalAlignment="Top" Width="177"/>
+						<Button Content="Choose" HorizontalAlignment="Left" Margin="297,77,0,0" VerticalAlignment="Top" Width="45"  Click="PickUploadTargetFolder"  />
+						<Button Content="Open" HorizontalAlignment="Left" Margin="347,77,0,0" VerticalAlignment="Top" Width="45" Click="OpenUploadTargetFolder" />
+						<Label Content="Warning: your branch (on server) will be completly replaced." HorizontalAlignment="Left" Margin="10,133,0,0" VerticalAlignment="Top" Width="382"/>
+						<CheckBox Content="Yes, i know! i want to replace the branch on the server." HorizontalAlignment="Left" Margin="10,164,0,0" VerticalAlignment="Top" Width="382" Name="chkUploadConfirm" Checked="CheckUpload" Unchecked="UnCheckUpload"/>
+						<Button Content="Check Folder" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top" Width="80" Click="CheckUploadFolder" Height="23"/>
+						<Label Content="Check files" HorizontalAlignment="Left" Margin="99,102,0,0" VerticalAlignment="Top" Width="303" Height="25" Name="checkResult"/>
+						<Grid HorizontalAlignment="Left" Height="128" Margin="0,184,0,0" VerticalAlignment="Top" Width="402" Name="uploadFilesSubGrid" IsEnabled="false">
+							<Button Content="Upload Branch" HorizontalAlignment="Left" VerticalAlignment="Top" Width="402" Grid.ColumnSpan="2" Click="UploadBranch" Name="btnUpload"/>
+						</Grid>
 					</Grid>
 				</Grid>
 			</TabItem>

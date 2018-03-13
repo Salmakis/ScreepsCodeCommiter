@@ -30,6 +30,18 @@ namespace ScreepsConnection
 {
 	public partial class Connector
 	{
+		public async void UploadCode(string branch,IEnumerable<ScreepsCodeFile> codeFiles)
+		{
+			var json = new JsonObject();
+			//add the branch
+			json.Add("branch", "default");
+			var modulesNode = new JsonObject();
+			foreach (var codeFile in codeFiles)
+			{
+				modulesNode.Add(codeFile.FileName, codeFile.FileContent);
+			}
+		}
+
 		public async Task<IEnumerable<ScreepsCodeFile>> GetCode(string branch = "default")
 		{
 			var node = await RequestGet($"/api/user/code?branch={branch}");
@@ -39,7 +51,7 @@ namespace ScreepsConnection
 				foreach (var subNode in node["modules"])
 				{
 					KeyValuePair<string, JsonValue> nodePair = (KeyValuePair<string, JsonValue>)subNode;
-					var newFile = new ScreepsCodeFile(nodePair.Key, nodePair.Value.ToString());
+					var newFile = new ScreepsCodeFile(nodePair.Key, nodePair.Value);
 					codeList.Add(newFile);
 				}
 			}

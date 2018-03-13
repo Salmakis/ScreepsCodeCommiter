@@ -20,6 +20,7 @@ SOFTWARE.
 */
 
 using ScreepsConnection;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -78,6 +79,34 @@ namespace ScreepsCodeCommiter
 				btn.IsEnabled = true;
 			}else{
 				btn.IsEnabled = false;
+			}
+		}
+
+		/// <summary>
+		/// opens the folder wich is the selected target for download
+		/// </summary>
+		private void OpenDownloadTargetFolder(object sender, RoutedEventArgs e)
+		{
+			var folder = ((TextBox)FindName("downloadPathBox")).Text;
+			if (!string.IsNullOrWhiteSpace(folder))
+			{
+				Process process = new Process();
+				process.StartInfo.UseShellExecute = true;
+				process.StartInfo.FileName = "explorer.exe";
+				process.StartInfo.Arguments = folder;
+				process.Start();
+			}
+		}
+
+		private void PickDownlodTargetFolder(object sender, RoutedEventArgs e)
+		{
+			using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+			{
+				System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+				if (result == System.Windows.Forms.DialogResult.OK)
+				{
+					((TextBox)FindName("downloadPathBox")).Text = dialog.SelectedPath;
+				}
 			}
 		}
 

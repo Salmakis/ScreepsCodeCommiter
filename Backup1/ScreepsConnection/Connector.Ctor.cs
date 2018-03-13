@@ -20,70 +20,43 @@ SOFTWARE.
 */
 
 using System;
-using System.Collections.Generic;
-using System.Json;
-using System.Text;
+using System.Net.Http;
 using System.Threading.Tasks;
-
+using System.Json;
+using ScreepsConnection;
+//05e59336-8feb-433c-b553-b97d260a5780
 namespace ScreepsConnection
 {
 	public partial class Connector
 	{
+		string token;
+		private static HttpClient client = new HttpClient();
+		string baseAdress;
 
-		public async Task<JsonValue> RequestPost(string request)
+		public string Token => token;
+		public string Adress => baseAdress;
+
+		private string AddToken()
 		{
-			if (request.Contains("?"))
-			{
-				request += $"&_token={token}";
-			}
-			else
-			{
-				request += $"?_token={token}";
-			}
-			try
-			{
-				var jsonString = await client.GetStringAsync($"{baseAdress}{request}");
-				return Parse(jsonString);
-			}
-			catch (Exception e)
-			{
-				error = new ConnectorError(e.Message);
-				return Parse("{\"ok\":0}");
-			}
+			return $"&_token={token}";
 		}
 
-		public async Task<JsonValue> RequestGet(string request)
+		public Connector(string token, string server = "http://screeps.com/")
 		{
-			if (request.Contains("?")){
-				request += $"&_token={token}";
-			}else{
-				request += $"?_token={token}";
-			}
-			try
-			{
-				var jsonString = await client.GetStringAsync($"{baseAdress}{request}");
-				return Parse(jsonString);
-			}
-			catch (Exception e)
-			{
-				error = new ConnectorError(e.Message);
-				return Parse("{\"ok\":0}");
-			}
-		}
+			//fallback for screepsmod-auth
+			//client.DefaultRequestHeaders.Add("X-Token",token);
+			//client.DefaultRequestHeaders.Add("X-Username", token);
 
-		public JsonValue Parse(string jsonString)
-		{
 			try
 			{
-				var jsonValue = JsonValue.Parse(jsonString);
-				return jsonValue;
+				baseAdress = server;
+				//client.BaseAddress = new Uri(server);
 			}
 			catch (Exception e)
 			{
-				this.error = new ConnectorError($"json parse error: {e.Message}");
-				//return a not ok signal json
-				return JsonValue.Parse("{\"ok\":0}");
+				error = new ConnectorError("invalid server address");
 			}
+			this.token = token;
 		}
 	}
 }

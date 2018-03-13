@@ -19,6 +19,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using ScreepsConnection;
 using System;
 using System.Collections.Generic;
 using System.Json;
@@ -29,61 +30,43 @@ namespace ScreepsConnection
 {
 	public partial class Connector
 	{
-
-		public async Task<JsonValue> RequestPost(string request)
+		public async Task<IEnumerable<ScreepsCodeFile>> GetCode(string branch = "default")
 		{
-			if (request.Contains("?"))
+			var node = await RequestGet($"/api/user/code?branch={branch}");
+			var codeList = new List<ScreepsCodeFile>();
+			if (node["ok"] == 1)
 			{
-				request += $"&_token={token}";
+				foreach (var subNode in node["modules"])
+				{
+					KeyValuePair<string, JsonValue> nodePair = (KeyValuePair<string, JsonValue>)subNode;
+					var newFile = new ScreepsCodeFile(nodePair.Key, nodePair.Value.ToString());
+					codeList.Add(newFile);
+				}
 			}
-			else
-			{
-				request += $"?_token={token}";
-			}
-			try
-			{
-				var jsonString = await client.GetStringAsync($"{baseAdress}{request}");
-				return Parse(jsonString);
-			}
-			catch (Exception e)
-			{
-				error = new ConnectorError(e.Message);
-				return Parse("{\"ok\":0}");
-			}
+			return codeList;
 		}
 
-		public async Task<JsonValue> RequestGet(string request)
+		/// <summary>
+		/// get the branches, the current active one (world) will be the first one in the list
+		/// </summary>
+		public async Task<IEnumerable<string>> GetBranches()
 		{
-			if (request.Contains("?")){
-				request += $"&_token={token}";
-			}else{
-				request += $"?_token={token}";
-			}
-			try
-			{
-				var jsonString = await client.GetStringAsync($"{baseAdress}{request}");
-				return Parse(jsonString);
-			}
-			catch (Exception e)
-			{
-				error = new ConnectorError(e.Message);
-				return Parse("{\"ok\":0}");
-			}
-		}
-
-		public JsonValue Parse(string jsonString)
-		{
-			try
-			{
-				var jsonValue = JsonValue.Parse(jsonString);
-				return jsonValue;
-			}
-			catch (Exception e)
-			{
-				this.error = new ConnectorError($"json parse error: {e.Message}");
-				//return a not ok signal json
-				return JsonValue.Parse("{\"ok\":0}");
-			}
+			var list = new LinkedList<string>();
+			
+			var node = (await RequestGet($"/api/user/branches"));
+			if(node["ok"] == 1){
+				foreach (var subNode in ((JsonArray)node["list"]))
+				{
+					if (subNode.ContainsKey("activeWorld") && subNode["activeWorld"] == true){
+						list.AddFirst(subNode["branch"]);
+					}
+					else{
+						list.AddLast(subNode["branch"]);
+					}
+				}
+				return list;
+			}	
+			return null;
 		}
 	}
 }

@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Blend for Visual Studio 15
+# Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreepsConnection", "ScreepsConnection\ScreepsConnection.csproj", "{91303FCE-9007-4251-95AB-D3D0C166C3BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScreepsConnection", "ScreepsConnection\ScreepsConnection.csproj", "{91303FCE-9007-4251-95AB-D3D0C166C3BE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreepsWpfTest", "ScreepsWpf\ScreepsWpfTest.csproj", "{0D61BD18-B25A-467C-86AA-E9088DD83913}"
 EndProject

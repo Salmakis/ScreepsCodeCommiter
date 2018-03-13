@@ -101,7 +101,7 @@ namespace ScreepsCodeCommiter
 						{
 							ServerInfo serverInfo = (ServerInfo)serverList.SelectedItem;
 							((Label)FindName("upStatus")).Content = $"Please wait, getting info from {serverInfo.Address}";
-							UpdateDownloadTab(serverInfo);
+							UpdateUploadTab(serverInfo);
 						}
 						else
 						{
@@ -139,21 +139,7 @@ namespace ScreepsCodeCommiter
 			logBox.ScrollToEnd();
 		}
 
-		/// <summary>
-		/// opens the folder wich is the selected target for download
-		/// </summary>
-		private void OpenTargetFolder(object sender, RoutedEventArgs e)
-		{
-			var folder = ((TextBox)FindName("downloadPathBox")).Text;
-			if (!string.IsNullOrWhiteSpace(folder))
-			{
-				Process process = new Process();
-				process.StartInfo.UseShellExecute = true;
-				process.StartInfo.FileName = "explorer.exe";
-				process.StartInfo.Arguments = folder;
-				process.Start();
-			}
-		}
-	}
+
+    }
 }
 

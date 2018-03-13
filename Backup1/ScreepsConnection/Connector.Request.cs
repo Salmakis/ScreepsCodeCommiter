@@ -29,29 +29,6 @@ namespace ScreepsConnection
 {
 	public partial class Connector
 	{
-
-		public async Task<JsonValue> RequestPost(string request)
-		{
-			if (request.Contains("?"))
-			{
-				request += $"&_token={token}";
-			}
-			else
-			{
-				request += $"?_token={token}";
-			}
-			try
-			{
-				var jsonString = await client.GetStringAsync($"{baseAdress}{request}");
-				return Parse(jsonString);
-			}
-			catch (Exception e)
-			{
-				error = new ConnectorError(e.Message);
-				return Parse("{\"ok\":0}");
-			}
-		}
-
 		public async Task<JsonValue> RequestGet(string request)
 		{
 			if (request.Contains("?")){
