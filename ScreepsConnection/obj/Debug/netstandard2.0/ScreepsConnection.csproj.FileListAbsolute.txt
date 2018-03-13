@@ -1,0 +1,9 @@
+d:\eigenedateien\dokumente\visual studio 2017\Projects\ScreepsTalker\ScreepsConnection\bin\Debug\netstandard2.0\ScreepsConnection.deps.json
+d:\eigenedateien\dokumente\visual studio 2017\Projects\ScreepsTalker\ScreepsConnection\bin\Debug\netstandard2.0\ScreepsConnection.dll
+d:\eigenedateien\dokumente\visual studio 2017\Projects\ScreepsTalker\ScreepsConnection\bin\Debug\netstandard2.0\ScreepsConnection.pdb
+d:\eigenedateien\dokumente\visual studio 2017\Projects\ScreepsTalker\ScreepsConnection\obj\Debug\netstandard2.0\ScreepsConnection.csproj.CoreCompileInputs.cache
+d:\eigenedateien\dokumente\visual studio 2017\Projects\ScreepsTalker\ScreepsConnection\obj\Debug\netstandard2.0\ScreepsConnection.AssemblyInfoInputs.cache
+d:\eigenedateien\dokumente\visual studio 2017\Projects\ScreepsTalker\ScreepsConnection\obj\Debug\netstandard2.0\ScreepsConnection.AssemblyInfo.cs
+d:\eigenedateien\dokumente\visual studio 2017\Projects\ScreepsTalker\ScreepsConnection\obj\Debug\netstandard2.0\ScreepsConnection.dll
+d:\eigenedateien\dokumente\visual studio 2017\Projects\ScreepsTalker\ScreepsConnection\obj\Debug\netstandard2.0\ScreepsConnection.pdb
+d:\eigenedateien\dokumente\visual studio 2017\Projects\ScreepsTalker\ScreepsConnection\obj\Debug\netstandard2.0\ScreepsConnection.csprojResolveAssemblyReference.cache
