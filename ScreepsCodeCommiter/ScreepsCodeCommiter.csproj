@@ -62,6 +62,7 @@
     <Compile Include="MainWindow.cs" />
     <Compile Include="MainWindow.Download.cs" />
     <Compile Include="MainWindow.ServerList.cs" />
+    <Compile Include="MainWindow.Upload.cs" />
     <Compile Include="ServerInfo.cs" />
     <Compile Include="ServerWindow.xaml.cs">
       <DependentUpon>ServerWindow.xaml</DependentUpon>

@@ -16,7 +16,11 @@
 				<RowDefinition Height="30"/>
 				<RowDefinition Height="*"/>
 			</Grid.RowDefinitions>
-			<RichTextBox Grid.Row="1" IsReadOnly="True" Name="logger" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
+			<RichTextBox Grid.Row="1" IsReadOnly="True" Name="logger" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+				<FlowDocument>
+					<Paragraph/>
+				</FlowDocument>
+			</RichTextBox>
 			<Label Content="Activity and info Log" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="466"/>
 			<Button Content="ClearLog" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="75" Click="ClearLog"/>
 		</Grid>
@@ -49,14 +53,21 @@
 						<CheckBox Content="Create a Subfolder with Branchname and download into" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="380" Name="chkCreateSub"/>
 						<CheckBox Content="Create subfolder structure if folderStructureInfo file is available" HorizontalAlignment="Left" Margin="10,116,0,0" VerticalAlignment="Top" Width="380" Name="chkCreateStructure" ToolTip="You can create a folderInfoStructure file when uploading to keep your folder structure with your code"/>
 						<CheckBox Content="Yes, overwrite existing files in the target folder if existing!" HorizontalAlignment="Left" Margin="10,161,0,0" VerticalAlignment="Top" Width="382" Name="chkSaveOverwrite" ToolTip="You can create a folderInfoStructure file when uploading to keep your folder structure with your code" Checked="CheckOverwriteDownload" Unchecked="CheckOverwriteDownload"/>
-						<Button Content="Start Download" HorizontalAlignment="Left" Margin="10,181,0,103" Width="382" Click="ButtonStartDownload" Name="btnStartDownload" IsEnabled="false"/>
+						<Button Content="Start Download" HorizontalAlignment="Left" Margin="10,181,0,103" Width="382" Click="ButtonStartDownload" Name="btnStartDownload" IsEnabled="false" ToolTip="Confirm with the checkbox above"/>
 					</Grid>
 				</Grid>
 			</TabItem>
 			<TabItem Header="Upload" Name="tabUpload" >
 				<Grid Background="#FFE5E5E5">
-					<Label Content="TODO :P" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="1065" Name="upStatus"/>
-					<Grid HorizontalAlignment="Left" Height="372" Margin="10,41,0,0" VerticalAlignment="Top" Width="1065" Grid.ColumnSpan="3"/>
+					<Label Content="..." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="402" Name="upStatus"/>
+					<Grid HorizontalAlignment="Left" Height="312" Margin="10,41,0,0" VerticalAlignment="Top" Width="402" Name="upGrid">
+						<Label Content="Upload into:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80"/>
+						<RadioButton Content="Existing Branch" HorizontalAlignment="Left" Margin="95,16,0,0" VerticalAlignment="Top" GroupName="radioUploadTo" Checked="RadioBranchSelectExisting"/>
+						<RadioButton Content="New Branch" HorizontalAlignment="Left" Margin="95,44,0,0" VerticalAlignment="Top" GroupName="radioUploadTo" Checked="RadioBranchSelectExisting"/>
+						<ComboBox HorizontalAlignment="Left" Margin="199,16,0,0" VerticalAlignment="Top" Width="108" Height="20"/>
+						<Button Content="Refresh" Margin="317,16,10,276"/>
+						<TextBox HorizontalAlignment="Left" Height="20" Margin="199,42,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="108"/>
+					</Grid>
 				</Grid>
 			</TabItem>
 		</TabControl>
