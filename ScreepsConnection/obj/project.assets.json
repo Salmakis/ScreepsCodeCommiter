@@ -220,11 +220,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\EigeneDateien\\Dokumente\\Visual Studio 2017\\Projects\\ScreepsTalker\\ScreepsConnection\\ScreepsConnection.csproj",
+      "projectUniqueName": "D:\\GitRepos\\ScreepsTools\\ScreepsCodeCommiter\\ScreepsConnection\\ScreepsConnection.csproj",
       "projectName": "ScreepsConnection",
-      "projectPath": "D:\\EigeneDateien\\Dokumente\\Visual Studio 2017\\Projects\\ScreepsTalker\\ScreepsConnection\\ScreepsConnection.csproj",
+      "projectPath": "D:\\GitRepos\\ScreepsTools\\ScreepsCodeCommiter\\ScreepsConnection\\ScreepsConnection.csproj",
       "packagesPath": "C:\\Users\\salma\\.nuget\\packages\\",
-      "outputPath": "D:\\EigeneDateien\\Dokumente\\Visual Studio 2017\\Projects\\ScreepsTalker\\ScreepsConnection\\obj\\",
+      "outputPath": "D:\\GitRepos\\ScreepsTools\\ScreepsCodeCommiter\\ScreepsConnection\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
