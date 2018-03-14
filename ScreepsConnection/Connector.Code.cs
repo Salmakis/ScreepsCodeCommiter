@@ -30,15 +30,58 @@ namespace ScreepsConnection
 {
 	public partial class Connector
 	{
-		public async void UploadCode(string branch,IEnumerable<ScreepsCodeFile> codeFiles)
+		public async Task<bool> DeleteBranch(string branch){
+			var json = new JsonObject();
+			json.Add("branch", branch);
+			var result = await RequestPost("/api/user/delete-branch", json.ToString());
+			if (result.ContainsKey("ok") && result["ok"] == 1)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		public async Task<bool> CloneBranch(string branch, string newBranchName)
+		{
+			var json = new JsonObject();
+			json.Add("branch", branch);
+			json.Add("newName", newBranchName);
+			var result = await RequestPost("/api/user/clone-branch", json.ToString());
+			if (result.ContainsKey("ok") && result["ok"] == 1)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		public async Task<bool> UploadCode(string branch,IEnumerable<ScreepsCodeFile> codeFiles)
 		{
 			var json = new JsonObject();
 			//add the branch
-			json.Add("branch", "default");
+			json.Add("branch", branch);
 			var modulesNode = new JsonObject();
+			
 			foreach (var codeFile in codeFiles)
 			{
 				modulesNode.Add(codeFile.FileName, codeFile.FileContent);
+			}
+
+			json.Add("modules", modulesNode);
+
+			var result = await RequestPost("/api/user/code", json.ToString());
+			if (result.ContainsKey("ok") && result["ok"] == 1)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
 			}
 		}
 

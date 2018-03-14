@@ -33,6 +33,19 @@ namespace ScreepsCodeCommiter
 	/// </summary>
 	public partial class MainWindow
 	{
+
+		Connector GetCurrentConnector(ServerInfo serverInfo)
+		{
+			if (null == currentConnector ||
+				currentConnector.Adress != serverInfo.Address ||
+				currentConnector.Token != serverInfo.Token)
+			{
+					currentConnector = new Connector(serverInfo.Token, serverInfo.Address);
+			
+			}
+			return currentConnector;
+		}
+
 		/// <summary>
 		/// update the infos in the download tab (such as branches, username etc)
 		/// </summary>
@@ -40,12 +53,9 @@ namespace ScreepsCodeCommiter
 		private async void UpdateDownloadTab(ServerInfo serverInfo)
 		{
 			((Grid)FindName("downGrid")).IsEnabled = false;
-			if (null == currentConnector ||
-				currentConnector.Adress != serverInfo.Address ||
-				currentConnector.Token != serverInfo.Token)
-			{
-				currentConnector = new Connector(serverInfo.Token, serverInfo.Address);
-			}
+
+			GetCurrentConnector(serverInfo);
+
 			LogActivity($"getting user info from {serverInfo.Address}");
 			var userInfo = await currentConnector.GetMyUserInfo();
 			if (null != userInfo)
@@ -77,7 +87,9 @@ namespace ScreepsCodeCommiter
 			if (cBox?.IsChecked == true)
 			{
 				btn.IsEnabled = true;
-			}else{
+			}
+			else
+			{
 				btn.IsEnabled = false;
 			}
 		}

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ScreepsCodeCommiter"
         mc:Ignorable="d"
+		Icon="./Icon/icon.png"
         Title="Screeps Code tool" Height="422" Width="864">
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -63,13 +64,13 @@
 			<TabItem Header="Upload" Name="tabUpload" >
 				<Grid Background="#FFE5E5E5">
 					<Label Content="..." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="402" Name="upStatus"/>
-					<Grid HorizontalAlignment="Left" Height="312" Margin="10,41,0,0" VerticalAlignment="Top" Width="402" Name="upGrid">
-						<Label Content="Upload into:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80"/>
-						<RadioButton Content="Existing Branch:" HorizontalAlignment="Left" Margin="95,16,0,0" VerticalAlignment="Top" GroupName="radioUploadTo" Checked="RadioBranchSelectExisting" />
-						<RadioButton Content="New Branch:" HorizontalAlignment="Left" Margin="95,44,0,0" VerticalAlignment="Top" GroupName="radioUploadTo" Checked="RadioBranchSelectNew"/>
-						<ComboBox HorizontalAlignment="Left" Margin="199,16,0,0" VerticalAlignment="Top" Width="108" Height="20" x:Name="cmbUpBranches" SelectionChanged="DoNothing" IsEnabled="False"/>
-						<Button Content="Refresh" Margin="317,16,10,276" Click="ButtonRefreshBranchesUp"/>
-						<TextBox HorizontalAlignment="Left" Height="20" Margin="199,42,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="108" x:Name="txtNewBranch" IsEnabled="False"/>
+					<Grid HorizontalAlignment="Left" Height="312" Margin="10,41,0,0" VerticalAlignment="Top" Width="402" Name="upGrid" IsEnabled="false">
+						<Label Content="Branch" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="92" Height="24"/>
+						<RadioButton Content="Existing" HorizontalAlignment="Left" Margin="82,16,0,0" VerticalAlignment="Top" Width="70" GroupName="radioBranch" Name="radioExisting"/>
+						<RadioButton Content="New" HorizontalAlignment="Left" Margin="82,44,0,0" VerticalAlignment="Top" Width="70" Height="16" GroupName="radioBranch" Name="radioNew"/>
+						<TextBox HorizontalAlignment="Left" Height="23" Margin="152,42,0,0" TextWrapping="Wrap" Name="txtNewBranch" Text="TextBox" VerticalAlignment="Top" Width="130" IsEnabled="{Binding ElementName=radioNew, Path=IsChecked}"/>
+						<ComboBox HorizontalAlignment="Left" Margin="152,10,0,0" VerticalAlignment="Top" Width="130" Height="24" x:Name="cmbUpBranches" SelectionChanged="DoNothing" IsEnabled="{Binding ElementName=radioExisting, Path=IsChecked}"/>
+						<Button Content="Refresh"  HorizontalAlignment="Left" Margin="287,10,0,0" VerticalAlignment="Top" Width="105" Height="24" Click="ButtonRefreshBranchesUp"/>
 						<Label Content="Source Directory:" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top"/>
 						<TextBox HorizontalAlignment="Left" Height="20" Margin="115,77,0,0" TextWrapping="NoWrap" Text="c:\screepsCode" Name="uploadPathBox" VerticalAlignment="Top" Width="177"/>
 						<Button Content="Choose" HorizontalAlignment="Left" Margin="297,77,0,0" VerticalAlignment="Top" Width="45"  Click="PickUploadTargetFolder"  />
@@ -81,6 +82,24 @@
 						<Grid HorizontalAlignment="Left" Height="128" Margin="0,184,0,0" VerticalAlignment="Top" Width="402" Name="uploadFilesSubGrid" IsEnabled="false">
 							<Button Content="Upload Branch" HorizontalAlignment="Left" VerticalAlignment="Top" Width="402" Grid.ColumnSpan="2" Click="UploadBranch" Name="btnUpload"/>
 						</Grid>
+					</Grid>
+				</Grid>
+			</TabItem>
+			<TabItem Header="Branches" Name="tabBranches">
+				<Grid Background="#FFE5E5E5">
+					<Label Content="..." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="402" Name="branchStatus"/>
+					<Grid HorizontalAlignment="Left" Height="312" Margin="10,41,0,0" VerticalAlignment="Top" Width="402" Name="branchGrid" IsEnabled="false">
+						<Label Content="Branches" Margin="10,0,165,283" />
+						<ListBox HorizontalAlignment="Left" Height="268" Margin="10,34,0,0" VerticalAlignment="Top" Width="227" Name="listBranches" SelectionChanged="DoNothing"/>
+						<Label Content="Update the List" Margin="247,30,0,253" />
+						<Button Content="Refresh branches" Margin="247,64,0,223" Click="ButtonRefreshBranchesBranches"/>
+						<CheckBox Content="I know, i cant revert!" HorizontalAlignment="Left" Margin="242,257,0,0" VerticalAlignment="Top" Width="155" Name="deleteConfirmCheck" />
+						<Button Content="Delete selected branch" HorizontalAlignment="Left" Margin="242,277,0,0" VerticalAlignment="Top" Width="155" Height="25" Click="ButtonDeleteBranch" IsEnabled="{Binding ElementName=deleteConfirmCheck, Path=IsChecked}" />
+						<Label Content="Craete new Branch:" Margin="247,105,0,183" />
+						<Button Content="Clone selected branch" HorizontalAlignment="Left" Margin="247,162,0,0" VerticalAlignment="Top" Width="155" Height="25" Click="ButtonCloneBranch" IsEnabled="{Binding ElementName=txtNewBranchName,Path=Text.Length}"/>
+						<Button Content="Create as new Branch" HorizontalAlignment="Left" Margin="247,192,0,0" VerticalAlignment="Top" Width="155" Height="25" Click="ButtonNewBranch" IsEnabled="{Binding ElementName=txtNewBranchName,Path=Text.Length}"/>
+						<Label Content="Delete a Branch" Margin="242,228,5,55" />
+						<TextBox HorizontalAlignment="Left" Height="23" Margin="247,134,0,0" TextWrapping="Wrap" Name="txtNewBranchName" Text="" VerticalAlignment="Top" Width="155"/>
 					</Grid>
 				</Grid>
 			</TabItem>

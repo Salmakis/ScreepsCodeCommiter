@@ -24,6 +24,7 @@ using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Media;
 
@@ -38,6 +39,7 @@ namespace ScreepsCodeCommiter
 		Label lblServerAdd;
 		Label lblServerToken;
 		RichTextBox logBox;
+		string lastTabName;
 
 		Connector currentConnector;
 
@@ -74,19 +76,33 @@ namespace ScreepsCodeCommiter
 		/// <summary>
 		/// being called when the user selects another tab
 		/// </summary>0
-		public void TabSelectionChanged(object sender, SelectionChangedEventArgs e)
+		public async void TabSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var ctrl = (TabControl)sender;
+
+			((Grid)FindName("upGrid")).IsEnabled = false;
+			((Grid)FindName("downGrid")).IsEnabled = false;
+			((Grid)FindName("branchGrid")).IsEnabled = false;
+
 			if (null != ctrl.SelectedItem)
 			{
+				ServerInfo serverInfo = (ServerInfo)serverList.SelectedItem;
+				GetCurrentConnector(serverInfo);
+
 				var tab = (TabItem)ctrl?.SelectedItem;
+
+				if (tab?.Name == lastTabName){
+					return;
+				}
+
+				lastTabName = tab.Name;
+
 				switch (tab?.Name)
 				{
 					case "tabDownload":
 						((Grid)FindName("upGrid")).IsEnabled = false;
-						if (null != serverList.SelectedItem)
-						{
-							ServerInfo serverInfo = (ServerInfo)serverList.SelectedItem;
+						if (null != serverInfo )
+						{	
 							((Label)FindName("downStatus")).Content = $"Please wait, getting info from {serverInfo.Address}";
 							UpdateDownloadTab(serverInfo);
 						}
@@ -97,9 +113,8 @@ namespace ScreepsCodeCommiter
 						break;
 					case "tabUpload":
 						((Grid)FindName("downGrid")).IsEnabled = false;
-						if (null != serverList.SelectedItem)
+						if (null != serverInfo)
 						{
-							ServerInfo serverInfo = (ServerInfo)serverList.SelectedItem;
 							((Label)FindName("upStatus")).Content = $"Please wait, getting info from {serverInfo.Address}";
 							UpdateUploadTab(serverInfo);
 						}
@@ -108,9 +123,24 @@ namespace ScreepsCodeCommiter
 							((Label)FindName("downStatus")).Content = $"Please create and Select a server in settings tab.";
 						}
 						break;
-					default:
-						((Grid)FindName("upGrid")).IsEnabled = false;
-						((Grid)FindName("downGrid")).IsEnabled = false;
+					case "tabBranches":
+						var list = (Selector)FindName("listBranches");
+						list.Items.Clear();
+
+						var userInfo = await currentConnector.GetMyUserInfo();
+
+						if (null != serverInfo && null != userInfo)
+						{
+							((Label)FindName("branchStatus")).Content = $"Please wait, getting info from {serverInfo.Address}";
+							RefreshBranchLists(list);
+							((Label)FindName("branchStatus")).Content = $"Manage your Branches here";
+							((Grid)FindName("branchGrid")).IsEnabled = true;
+						}
+						else
+						{	
+							((Label)FindName("branchStatus")).Content = $"Could not get Branches";
+							((Grid)FindName("branchGrid")).IsEnabled = false;
+						}
 						break;
 				}
 			}

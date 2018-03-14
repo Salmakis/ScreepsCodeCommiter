@@ -22,6 +22,7 @@ SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Json;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,20 +31,23 @@ namespace ScreepsConnection
 	public partial class Connector
 	{
 
-		public async Task<JsonValue> RequestPost(string request)
+		public async Task<JsonValue> RequestPost(string uriPart,string content)
 		{
-			if (request.Contains("?"))
+			if (uriPart.Contains("?"))
 			{
-				request += $"&_token={token}";
+				uriPart += $"&_token={token}";
 			}
 			else
 			{
-				request += $"?_token={token}";
+				uriPart += $"?_token={token}";
 			}
 			try
 			{
-				var jsonString = await client.GetStringAsync($"{baseAdress}{request}");
-				return Parse(jsonString);
+				Console.WriteLine($"posting to {uriPart} with {content}");
+				//var httpRequest = new HttpRequestMessage(HttpMethod.Post, $"{baseAdress}{uriPart}");
+				var stringContent = new StringContent(content,Encoding.UTF8, "application/json");
+				var response = await client.PostAsync($"{baseAdress}{uriPart}",stringContent);
+				return Parse(await response.Content.ReadAsStringAsync());
 			}
 			catch (Exception e)
 			{

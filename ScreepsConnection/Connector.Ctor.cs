@@ -44,9 +44,6 @@ namespace ScreepsConnection
 		public Connector(string token, string server = "http://screeps.com/")
 		{
 			//fallback for screepsmod-auth
-			//client.DefaultRequestHeaders.Add("X-Token",token);
-			//client.DefaultRequestHeaders.Add("X-Username", token);
-
 			try
 			{
 				baseAdress = server;

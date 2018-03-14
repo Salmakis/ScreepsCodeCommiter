@@ -71,29 +71,6 @@ namespace ScreepsCodeCommiter
 			((Grid)FindName("upGrid")).IsEnabled = true;
 		}
 
-		/// <summary>
-		/// on decision for existing branch
-		/// </summary>
-		private void RadioBranchSelectExisting(object sender, RoutedEventArgs e)
-		{
-			createNewBranch = false;
-			ComboBox bListDown = FindName("cmbUpBranches") as ComboBox;
-			bListDown.IsEnabled = true;
-			TextBox textBox = FindName("txtNewBranch") as TextBox;
-			textBox.IsEnabled = false;
-		}
-		/// <summary>
-		/// on decision for existing branch
-		/// </summary>
-		private void RadioBranchSelectNew(object sender, RoutedEventArgs e)
-		{
-			createNewBranch = true;
-			ComboBox bListDown = FindName("cmbUpBranches") as ComboBox;
-			bListDown.IsEnabled = false;
-			TextBox textBox = FindName("txtNewBranch") as TextBox;
-			textBox.IsEnabled = true;
-		}
-
 		private void CheckUpload(object sender, RoutedEventArgs e)
 		{
 			(FindName("uploadFilesSubGrid") as Grid).IsEnabled = true;
@@ -152,20 +129,40 @@ namespace ScreepsCodeCommiter
 			}
 		}
 
-		private void UploadBranch(object sender, RoutedEventArgs e)
+		private async void UploadBranch(object sender, RoutedEventArgs e)
 		{
 			var path = ((TextBox)FindName("uploadPathBox")).Text;
-			string branch;
+			string branch = null;
+			var createNewBranch = ((RadioButton)FindName("radioNew")).IsChecked == true;
+			var useExistingBranch = ((RadioButton)FindName("radioExisting")).IsChecked == true;
+
 			if (createNewBranch)
 			{
 				TextBox textBox = FindName("txtNewBranch") as TextBox;
 				branch = textBox.Text;
+				if (string.IsNullOrWhiteSpace(branch)){
+					LogActivity($"please enter a name for the new branch", true);
+					return;
+				}
+				LogActivity($"creating new branch {branch}");
+				bool created = await currentConnector.CloneBranch(null, branch);
+				if (!created){
+					LogActivity($"could not create the new branch {branch}",true);
+					return;
+				}
 			}
-			else
+			else if (useExistingBranch)
 			{
 				ComboBox bList = FindName("cmbUpBranches") as ComboBox;
 				branch = (string)bList.SelectedItem;
+				LogActivity($"using existing branch {branch}");
 			}
+			else
+			{
+				LogActivity($"please choose: new branch, or existing one", true);
+				return;
+			}
+
 			if (CheckFolder(path))
 			{
 				LogActivity($"uploading to branch {branch}");
@@ -183,10 +180,17 @@ namespace ScreepsCodeCommiter
 						}
 						catch (System.Exception)
 						{
-							LogActivity($"problem loading file {{}",true);
+							LogActivity($"problem loading file {file}",true);
 							throw;
 						}
 					}
+				}
+				LogActivity($"Done loading {codeFiles.Count()} files, try sending");
+				if (await currentConnector.UploadCode(branch, codeFiles)){
+					LogActivity($"success");
+				}else{
+					LogActivity($"upload failed",true);
+					LogActivity($"upload eorror {currentConnector.GetLastError().Message}", true);
 				}
 			}
 			else
@@ -239,10 +243,19 @@ namespace ScreepsCodeCommiter
 		private IEnumerable<string> ScanFolder(string path)
 		{
 			LogActivity($"scanning folder folder (and subfolders) for .js files...");
-			var files = Directory.GetFiles(path, "*.js", SearchOption.AllDirectories);
-			LogActivity($"found {files.Length} files");
-			files = files.Select(x => { return x.Replace(path, ""); }).ToArray();
-			return files;
+			try
+			{
+				var files = Directory.GetFiles(path, "*.js", SearchOption.AllDirectories);
+				LogActivity($"found {files.Length} files");
+				files = files.Select(x => { return x.Replace(path, ""); }).ToArray();
+				return files;
+			}
+			catch (System.Exception)
+			{
+				LogActivity($"directory or path fail:{path}", true);
+				return new List<string>();
+			}
+		
 		}
 	}
 }

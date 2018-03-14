@@ -1,0 +1,9 @@
+D:\GitRepos\ScreepsTools\ScreepsCodeCommiter\ScreepsConnection\bin\Release\netstandard2.0\ScreepsConnection.deps.json
+D:\GitRepos\ScreepsTools\ScreepsCodeCommiter\ScreepsConnection\bin\Release\netstandard2.0\ScreepsConnection.dll
+D:\GitRepos\ScreepsTools\ScreepsCodeCommiter\ScreepsConnection\bin\Release\netstandard2.0\ScreepsConnection.pdb
+D:\GitRepos\ScreepsTools\ScreepsCodeCommiter\ScreepsConnection\obj\Release\netstandard2.0\ScreepsConnection.csprojResolveAssemblyReference.cache
+D:\GitRepos\ScreepsTools\ScreepsCodeCommiter\ScreepsConnection\obj\Release\netstandard2.0\ScreepsConnection.csproj.CoreCompileInputs.cache
+D:\GitRepos\ScreepsTools\ScreepsCodeCommiter\ScreepsConnection\obj\Release\netstandard2.0\ScreepsConnection.AssemblyInfoInputs.cache
+D:\GitRepos\ScreepsTools\ScreepsCodeCommiter\ScreepsConnection\obj\Release\netstandard2.0\ScreepsConnection.AssemblyInfo.cs
+D:\GitRepos\ScreepsTools\ScreepsCodeCommiter\ScreepsConnection\obj\Release\netstandard2.0\ScreepsConnection.dll
+D:\GitRepos\ScreepsTools\ScreepsCodeCommiter\ScreepsConnection\obj\Release\netstandard2.0\ScreepsConnection.pdb
