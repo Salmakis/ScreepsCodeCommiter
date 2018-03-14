@@ -1,2 +1,2 @@
 $ cat .gitattributes
-*.xaml linguist-language=xml
+*.xaml linguist-vendored
