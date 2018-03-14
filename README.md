@@ -29,9 +29,10 @@ Then use the other tabs which are self-explanatory (i hope so).
 There are Several projects in the code
 ### ScreepsConnetion
 It does all the Json and Get/Post stuff.
-the ScreepsConnection library does all the Communication with screeps in async methods and gives out/takes c# Classes such as Room, CodeFile, etc.
 
-It can be used with all kinds of C# Projects such as .Net4, .NetCore, Mono, Unity etc.
+The ScreepsConnection library does all the Communication with screeps in async methods and gives out/takes c# Classes such as Room, CodeFile, etc.
+
+Its written only with netstandard2.0 lib so it can be used with all kinds of C# Projects such as .Net4, .NetCore, Mono, Unity etc.
 
 ### ScreeepsCommiter
 this is the project that this Site is About (actually)
