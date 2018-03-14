@@ -13,8 +13,8 @@ If you want to build the Project by yourself, you will need the System.Json nuge
 ## How to Use:
 Set the server settings in the Server Tab.
 For the official server this would be 
-address: https://screeps.com
-token: your access token
+* address: https://screeps.com
+* token: your access token
 
 Then select that server and hit the "Test" button to see if it works.
 
