@@ -4,4 +4,7 @@
 **/ScreepsCodeCommiter/bin/
 **/ScreepsConnection/bin/
 **/ScreepsWpf/bin/
+**/ScreepsCodeCommiter/obj/
+**/ScreepsConnection/obj/
+**/ScreepsWpf/obj/
 **/packages/
