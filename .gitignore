@@ -2,3 +2,6 @@
 *.cache
 .vs/ScreepsTools/v15/.suo
 ScreepsCodeCommiter/bin/
+ScreepsConnection/bin/
+ScreepsWpf/bin/
+packages/
