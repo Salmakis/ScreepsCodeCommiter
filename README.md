@@ -7,6 +7,7 @@ It can be used to quickly backup code from the Screeps Server to your local spac
 You can also manage your branches, commit direct into a new branch or clone an existing branch.
 
 Download: [Latest Release](https://github.com/Salmakis/ScreepsCodeCommiter/releases/latest)
+
 If you want to build the Project by yourself, you will need the System.Json nuget package.
 
 ## How to Use:
